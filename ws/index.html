@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Teox</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+    <div id="page-div">
+        
+        <h1>
+            You server is UP
+        </h1>
+
+        <div id="status">Conectando a aplicação...</div>
+
+        <ul id="mensagens"></ul>
+
+        <form id="mensagem-formulario" action="#" method="post">
+            <textarea id="mensagem" placeholder="Escreva a sua mensagem aqui!" required></textarea>
+            <button type="submit">Enviar mensagem</button>
+            <button type="button" id="close">Fechar conexão</button>
+        </form>
+    </div>
+
+    <script>
+
+        var form = document.getElementById('mensagem-formulario');
+        var mensagemTexto = document.getElementById('mensagem');
+        var listaMensagem = document.getElementById('mensagens');
+        var socketStatus = document.getElementById('status');
+        var btnFechar = document.getElementById('close');
+
+        var socket = new WebSocket(`ws://evento.tm041store.xyz`);
+
+        socket.onopen = function (event) {
+            console.log(event);
+            socketStatus.innerHTML = 'Conectado: ' + event.currentTarget.url;
+            socketStatus.className = 'open';
+        };
+
+        form.onsubmit = function (e) {
+            e.preventDefault();
+            
+            var mensagem = mensagemTexto.value;
+
+            if (socket.readyState != 1) {
+                listaMensagem.innerHTML += '<li class="error"><span>Error: </span>' + socket.readyState + '</li>';
+                mensagemTexto.value = '';
+                return false;
+            }
+            
+            socket.send(mensagem);
+
+            listaMensagem.innerHTML += '<li class="envia"><span>Enviado: </span>' + mensagem + '</li>';
+
+            mensagemTexto.value = '';
+
+            return false;
+        };
+
+        btnFechar.onclick = function (e) {
+            e.preventDefault();
+
+            socket.close();
+
+            return false;
+        };
+
+        socket.onmessage = (event) => {
+            var mensagem = event.data;
+            console.log(`WebSocket Message: ${mensagem}`);
+            listaMensagem.innerHTML += '<li class="recebida"><span>Recebida: </span>' + mensagem + '</li>';
+        };
+
+        socket.onerror = function (error) {
+            listaMensagem.innerHTML += '<li class="error"><span>Recebi um Erro do WebSocket:</span>' + error.name + '</li>';
+        };
+
+        socket.onclose = function (event) {
+            socketStatus.innerHTML = 'Disconectado do WebSocket.';
+            socketStatus.className = 'closed';
+            listaMensagem.innerHTML += '<li class="disconnect"><span>Close: </span>' + 'WebSocket' +'</li>';
+        };
+
+    </script>
+</body>
+
+</html>
