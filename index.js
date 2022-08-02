@@ -7,10 +7,10 @@ HTTP.listen({ port: 8080 }, () => {
     console.log(`[Teox] <HTTP> Server Listening 8080`);
 });
 
-WS(HTTP, "HTTPS");
+//WS(HTTP);
 
 HTTPS.listen({ port: PORTA }, () => {
     console.log(`[Teox] <HTTPS> Server Listening ${PORTA }`);
 });
 
-
+//WS(HTTPS);
