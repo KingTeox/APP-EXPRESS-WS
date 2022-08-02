@@ -1,7 +1,7 @@
 {
   "name": "teox-ws",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simples express and ws app",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
