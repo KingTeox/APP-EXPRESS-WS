@@ -39,7 +39,7 @@ function onConnection(wss, ws, req) {
     }); ws.on('close', () => console.log(`[Teox] <WS> Cliente Desconectado`));
 };
 
-module.exports = (servidor, Tipo) => {
+module.exports = (servidor) => {
 
     const wss = new ws.WebSocketServer({
         server: servidor
@@ -50,6 +50,6 @@ module.exports = (servidor, Tipo) => {
     wss.on('listening', () => onListening(wss));
     wss.on('close', onClose);
 
-    console.log(`[Teox] <WS> Server is Started ${Tipo}`);
+    console.log(`[Teox] <WS> Server is Started`);
     return wss;
 }
