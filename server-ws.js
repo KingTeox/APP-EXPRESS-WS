@@ -32,11 +32,9 @@ function onConnection(wss, ws, req) {
         let DataJ = JSON.parse(Data);
 
         console.log(DataJ)
-
-        console.log(`[Teox] <WS> Type: ${DataJ.Type}\n[Teox] <WS> User: ${DataJ.Client.tag}\n[Teox] <WS> Comandos: ${DataJ.Comandos}\n[Teox] <WS> Eventos: ${DataJ.Eventos}\n[Teox] <WS> Caches: ${DataJ.Caches}`);
         console.log(`[Teox] <WS> Clients: ${wss.clients.size}`);
         wss.clients.forEach((client) => {
-            client.send(`Client: ${DataJ.Client.tag} - ${DataJ.Type}`)
+            client.send(`New Client`)
         });
     }); ws.on('close', () => console.log(`[Teox] <WS> Cliente Desconectado`));
 };
