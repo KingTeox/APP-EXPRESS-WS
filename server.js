@@ -1,6 +1,5 @@
 const express = require("express");
 const WebApp = express();
-const TestApp = express();
 const path = require("path");
 const http = require("http");
 const https = require("https");
