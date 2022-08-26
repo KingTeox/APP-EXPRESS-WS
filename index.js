@@ -1,16 +1,11 @@
-const HTTP = require("./server").HTTP;
-const HTTPS = require("./server").HTTPS;
+const Servidor = require("./server").HTTP;
 const WS = require("./server-ws");
-const PORTA = process.env.PORT || 21006
+const PORTA = process.env.PORT || 3000
 
-HTTP.listen({ port: 8080 }, () => {
-    console.log(`[Teox] <HTTP> Server Listening 8080`);
+Servidor.listen({ port: PORTA });
+
+Servidor.on("error", (error) => {
+    console.log(`[Teox] <Server> Error: ${error}`);
 });
 
-//WS(HTTP);
-
-HTTPS.listen({ port: PORTA }, () => {
-    console.log(`[Teox] <HTTPS> Server Listening ${PORTA }`);
-});
-
-//WS(HTTPS);
+WS(Servidor);
