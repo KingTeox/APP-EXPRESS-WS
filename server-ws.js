@@ -50,6 +50,6 @@ module.exports = (servidor) => {
     wss.on('listening', () => onListening(wss));
     wss.on('close', onClose);
 
-    console.log(`[Teox] <WS> Server is Started`);
+    console.log(`[Teox] <WS> Servidor Iniciado`);
     return wss;
 }
