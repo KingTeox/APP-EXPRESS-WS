@@ -4,7 +4,8 @@
   "description": "Simples express and ws app",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "yarn"
   },
   "keywords": [],
   "author": "Teox",
